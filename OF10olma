@@ -6,7 +6,7 @@ if h and h:FindFirstChild("Nameplate") then
     local f = n:FindFirstChild("Frame")
     if f then
         if f:FindFirstChild("Rank") then f.Rank.Text, f.Rank.TextColor3 = "OF-10 Mareşal", Color3.fromRGB(0,0,0) end
-        if f:FindFirstChild("Name") then f.Name.Text, f.Name.TextColor3 = "ozguncs", Color3.fromRGB(0,0,0) end
+        if f:FindFirstChild("Name") then f.Name.Text, f.Name.TextColor3 = "SpyTA", Color3.fromRGB(0,0,0) end
         if f:FindFirstChild("Team") then f.Team.Text, f.Team.TextColor3 = "[FA] [SO] Ordu Subayları", Color3.fromRGB(255,0,0) end
     end
 end
