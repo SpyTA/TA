@@ -1,0 +1,22 @@
+local groupId = 3529061
+local ranksToCheck = {27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 255}
+
+local function checkPlayer(player)
+    if player:IsInGroup(groupId) then
+        local rank = player:GetRankInGroup(groupId)
+        
+        if table.find(ranksToCheck, rank) then
+            game.Players.LocalPlayer:Kick("Anti-Staff✅️")
+            game:Shutdown()
+        end
+    end
+end
+
+for _, player in ipairs(game.Players:GetPlayers()) do
+    task.defer(checkPlayer, player)
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    task.defer(checkPlayer, player)
+
+end)
