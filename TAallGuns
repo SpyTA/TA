@@ -1,0 +1,32 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ModelsFolder = ReplicatedStorage:WaitForChild("Weapon"):WaitForChild("Models")
+
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+for _, obj in pairs(ModelsFolder:GetChildren()) do
+    local clone = obj:Clone()
+
+    if clone:IsA("Model") then
+        if not clone.PrimaryPart then
+            clone.PrimaryPart = clone:FindFirstChildWhichIsA("BasePart")
+        end
+        if clone.PrimaryPart then
+            clone:SetPrimaryPartCFrame(
+                HumanoidRootPart.CFrame * CFrame.new(math.random(-10, 10), 6, math.random(-5, 5))
+            )
+            for _, part in pairs(clone:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.Anchored = true
+                end
+            end
+        end
+    elseif clone:IsA("BasePart") then
+        clone.CFrame = HumanoidRootPart.CFrame * CFrame.new(math.random(-10, 10), 6, math.random(-5, 5))
+        clone.Anchored = true
+    end
+
+    clone.Parent = workspace
+end
