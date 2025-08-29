@@ -1,4 +1,4 @@
--- Oyunda GK+ varsa otomatik kick atıyor
+-- Oyunda GK+ varsa oto kick atıyor
 local groupId = 3529061
 local ranksToCheck = {27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 255}
 
