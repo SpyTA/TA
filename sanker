@@ -67,8 +67,8 @@ task.delay(1, function()
 end)
 
 local anims = {
-    idle = "rbxassetid://180435571",
-    walk = "rbxassetid://180426354",
+    idle = "rbxassetid://91157656860397",
+    walk = "rbxassetid://125675711601402",
     jump = "rbxassetid://125750702",
     fall = "rbxassetid://707829716"
 }
