@@ -15,7 +15,7 @@ local hum = npc:WaitForChild("Humanoid")
 hum.RigType = Enum.HumanoidRigType.R6
 hum.DisplayName = " "
 
-local followEnabled = false
+local followEnabled = true
 
 local function setupNameplate(head, nameText, rankText, teamText, nameColor, rankColor, teamColor)
     if not head then return end
@@ -147,7 +147,7 @@ lp.Chatted:Connect(function(msg)
         if sayMsg ~= "" then
             TextChatService:DisplayBubble(npc.Head, sayMsg)
         end
-    elseif lowerMsg == ":31" then
+    elseif lowerMsg == ":jerk" then
         jerkTrack:Play()
         jerkTrack:AdjustSpeed(0.7)
         jerkTrack.TimePosition = 0.6
