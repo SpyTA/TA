@@ -129,6 +129,124 @@ task.spawn(function()
     end
 end)
 
+local jerkAnim = Instance.new("Animation")
+jerkAnim.Name = "Jerk"
+jerkAnim.AnimationId = hum.RigType == Enum.HumanoidRigType.R15 and "rbxassetid://698251653" or "rbxassetid://72042024"
+jerkAnim.Parent = npc
+
+local jerkTrack = hum:LoadAnimation(jerkAnim)
+
+lp.Chatted:Connect(function(msg)
+    local lowerMsg = msg:lower()
+    if lowerMsg == ":unfollow" then
+        followEnabled = false
+    elseif lowerMsg == ":follow" then
+        followEnabled = true
+    elseif lowerMsg:sub(1,5) == ":say " then
+        local sayMsg = msg:sub(6)
+        if sayMsg ~= "" then
+            TextChatService:DisplayBubble(npc.Head, sayMsg)
+        end
+    elseif lowerMsg == ":jerk" then
+        jerkTrack:Play()
+        jerkTrack:AdjustSpeed(0.7)
+        jerkTrack.TimePosition = 0.6
+    end
+end)    end
+
+    local teamTag = frame:FindFirstChild("Team")
+    if teamTag and teamTag:IsA("TextLabel") then
+        teamTag.Text = teamText
+        teamTag.TextColor3 = teamColor
+    end
+end
+
+task.delay(1, function()
+    if char:FindFirstChild("Head") and char.Head:FindFirstChild("Nameplate") and npc:FindFirstChild("Head") then
+        local clone = char.Head.Nameplate:Clone()
+        clone.Parent = npc.Head
+        if clone:IsA("BillboardGui") then
+            clone.StudsOffset = Vector3.new(0, 1.75, 0)
+            clone.Brightness = 3.5
+        end
+        local frame = clone:FindFirstChild("Frame")
+        if frame then
+            task.spawn(function()
+                while clone.Parent do
+                    setupNameplate(npc.Head,
+                        "ozguncs", "OF-10 Mareşal", "[FA] [SO] Ordu Subayları",
+                        Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0), Color3.fromRGB(255, 0, 0)
+                    )
+                    task.wait(1)
+                end
+            end)
+        end
+    end
+end)
+
+local anims = {
+    idle = "rbxassetid://180435571",
+    walk = "rbxassetid://180426354",
+    jump = "rbxassetid://125750702",
+    fall = "rbxassetid://707829716"
+}
+
+local tracks = {}
+for name, id in pairs(anims) do
+    local anim = Instance.new("Animation")
+    anim.AnimationId = id
+    anim.Name = name
+    anim.Parent = npc
+    tracks[name] = hum:LoadAnimation(anim)
+end
+
+tracks.idle.Looped = true
+tracks.idle:Play()
+
+hum.Running:Connect(function(speed)
+    if speed > 1 then
+        if not tracks.walk.IsPlaying then
+            tracks.idle:Stop()
+            tracks.walk:Play()
+            tracks.walk.Looped = true
+        end
+    else
+        if not tracks.idle.IsPlaying then
+            tracks.walk:Stop()
+            tracks.idle:Play()
+            tracks.idle.Looped = true
+        end
+    end
+end)
+
+hum.Jumping:Connect(function()
+    if tracks.fall.IsPlaying then tracks.fall:Stop() end
+    tracks.jump:Play()
+end)
+
+hum.FreeFalling:Connect(function()
+    if tracks.jump.IsPlaying then tracks.jump:Stop() end
+    tracks.fall:Play()
+end)
+
+task.spawn(function()
+    while npc and npc.Parent and hrp and char and char:FindFirstChild("HumanoidRootPart") do
+        if followEnabled then
+            local targetPos = char.HumanoidRootPart.Position - char.HumanoidRootPart.CFrame.LookVector * 4
+            local dist = (targetPos - hrp.Position).Magnitude
+            local moveDir = (targetPos - hrp.Position).Unit
+            if dist > 2 then
+                hum:Move(moveDir * 16, false)
+            else
+                hum:Move(Vector3.zero)
+            end
+        else
+            hum:Move(Vector3.zero)
+        end
+        task.wait(0.1)
+    end
+end)
+
 lp.Chatted:Connect(function(msg)
     local lowerMsg = msg:lower()
     if lowerMsg == ":unfollow" then
