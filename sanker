@@ -147,7 +147,7 @@ lp.Chatted:Connect(function(msg)
         if sayMsg ~= "" then
             TextChatService:DisplayBubble(npc.Head, sayMsg)
         end
-    elseif lowerMsg == ":jerk" then
+    elseif lowerMsg == ":31" then
         jerkTrack:Play()
         jerkTrack:AdjustSpeed(0.7)
         jerkTrack.TimePosition = 0.6
