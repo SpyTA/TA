@@ -15,7 +15,7 @@ local hum = npc:WaitForChild("Humanoid")
 hum.RigType = Enum.HumanoidRigType.R6
 hum.DisplayName = " "
 
-local followEnabled = true
+local followEnabled = false
 
 local function setupNameplate(head, nameText, rankText, teamText, nameColor, rankColor, teamColor)
     if not head then return end
