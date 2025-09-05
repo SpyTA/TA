@@ -138,9 +138,9 @@ local jerkTrack = hum:LoadAnimation(jerkAnim)
 
 lp.Chatted:Connect(function(msg)
     local lowerMsg = msg:lower()
-    if lowerMsg == ":unfollow" then
+    if lowerMsg == ":dur" then
         followEnabled = false
-    elseif lowerMsg == ":follow" then
+    elseif lowerMsg == ":gel" then
         followEnabled = true
     elseif lowerMsg:sub(1,5) == ":say " then
         local sayMsg = msg:sub(6)
