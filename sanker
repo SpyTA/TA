@@ -142,7 +142,7 @@ lp.Chatted:Connect(function(msg)
         followEnabled = false
     elseif lowerMsg == ":gel" then
         followEnabled = true
-    elseif lowerMsg:sub(1,5) == ":say " then
+    elseif lowerMsg:sub(1,5) == ":yaz " then
         local sayMsg = msg:sub(6)
         if sayMsg ~= "" then
             TextChatService:DisplayBubble(npc.Head, sayMsg)
