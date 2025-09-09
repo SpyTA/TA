@@ -2,7 +2,7 @@ local p = game.Players.LocalPlayer
 local h = p.Character and p.Character:FindFirstChild("Head")
 if h and h:FindFirstChild("Nameplate") then
     local n = h.Nameplate
-    n.Brightness = 3.5
+    n.Brightness = 5
     local f = n:FindFirstChild("Frame")
     if f then
         if f:FindFirstChild("Rank") then f.Rank.Text, f.Rank.TextColor3 = "OF-10 Mareşal", Color3.fromRGB(0,0,0) end
