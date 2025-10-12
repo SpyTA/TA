@@ -135,6 +135,7 @@ jerkAnim.AnimationId = hum.RigType == Enum.HumanoidRigType.R15 and "rbxassetid:/
 jerkAnim.Parent = npc
 
 local jerkTrack = hum:LoadAnimation(jerkAnim)
+local jerkLooping = false
 
 lp.Chatted:Connect(function(msg)
     local lowerMsg = msg:lower()
@@ -147,9 +148,22 @@ lp.Chatted:Connect(function(msg)
         if sayMsg ~= "" then
             TextChatService:DisplayBubble(npc.Head, sayMsg)
         end
-    elseif lowerMsg == ":jerk" then
-        jerkTrack:Play()
-        jerkTrack:AdjustSpeed(0.7)
-        jerkTrack.TimePosition = 0.6
+    elseif lowerMsg == ":bang" then
+        print("oe")
+    elseif lowerMsg == ":31çek" then
+        if not jerkLooping then
+            jerkLooping = true
+            task.spawn(function()
+                while jerkLooping and npc and hum and jerkTrack do
+                    jerkTrack:Play()
+                    jerkTrack:AdjustSpeed(0.7)
+                    jerkTrack.TimePosition = 0.6
+                    task.wait(jerkTrack.Length / 0.7)
+                end
+            end)
+        end
+    elseif lowerMsg == ":31çekme" then
+        jerkLooping = false
+        jerkTrack:Stop()
     end
 end)
