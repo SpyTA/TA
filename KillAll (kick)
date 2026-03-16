@@ -1,0 +1,50 @@
+local guns = {
+"AK-74MModel",
+"AWPModel",
+"BORA-12Model",
+"G3Model",
+"Glock-17Model",
+"Desert EagleModel",
+"HK416Model",
+"Kar98kModel",
+"M249Model",
+"M4A4Model",
+"M4Model",
+"MP5Model",
+"MPT-76Model",
+"RPG-7Model",
+"MinigunModel",
+"UMP-45Model",
+"YKModel"
+}
+
+while true do
+    local player = game.Players.LocalPlayer
+    local event = game:GetService("ReplicatedStorage").Weapon.Remotes.Fire
+
+    for _,gunName in pairs(guns) do
+        local gun = player.Character:FindFirstChild(gunName)
+
+        if gun then
+            for _,v in pairs(game.Players:GetPlayers()) do
+                if v ~= player and v.Character and v.Character:FindFirstChild("Head") then
+                    
+                    local head = v.Character.Head
+                    local start = gun.Grip.FireAttachment.WorldPosition
+
+                    event:FireServer(
+                        gun.Grip.FireAttachment,
+                        start,
+                        head.Position,
+                        head,
+                        28,
+                        0.09
+                    )
+                    
+                end
+            end
+        end
+    end
+
+    task.wait()
+end
