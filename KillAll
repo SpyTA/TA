@@ -1,0 +1,71 @@
+local guns = {
+"AK-74MModel","AWPModel","BORA-12Model","G3Model","Glock-17Model",
+"Desert EagleModel","HK416Model","Kar98kModel","M249Model","M4A4Model",
+"M4Model","MP5Model","MPT-76Model","RPG-7Model","MinigunModel",
+"UMP-45Model","YKModel"
+}
+
+local player = game.Players.LocalPlayer
+local event = game:GetService("ReplicatedStorage").Weapon.Remotes.Fire
+local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+
+local kills = 0
+
+while true do
+    for _,target in pairs(game.Players:GetPlayers()) do
+        if target ~= player
+        and target.Character
+        and target.Character:FindFirstChild("Head")
+        and target.Character:FindFirstChildOfClass("Humanoid") then
+
+            local enemyHum = target.Character:FindFirstChildOfClass("Humanoid")
+            local head = target.Character.Head
+
+            if enemyHum.Health > 0 then
+
+                for i=1,2 do
+                    for _,gunName in pairs(guns) do
+                        local gun = player.Character:FindFirstChild(gunName)
+
+                        if gun then
+                            local start = gun.Grip.FireAttachment.WorldPosition
+
+                            event:FireServer(
+                                gun.Grip.FireAttachment,
+                                start,
+                                head.Position,
+                                head,
+                                28,
+                                0.09
+                            )
+                        end
+                    end
+
+                    task.wait(0.05)
+                end
+
+                task.wait(0.2)
+
+                if enemyHum.Health <= 0 then
+                    kills = kills + 1
+                end
+
+                if kills >= 5 then
+                    humanoid:UnequipTools()
+                    task.wait(1)
+
+                    for _,tool in pairs(player.Backpack:GetChildren()) do
+                        if tool:IsA("Tool") then
+                            humanoid:EquipTool(tool)
+                        end
+                    end
+
+                    kills = 0
+                end
+
+            end
+        end
+    end
+
+    task.wait(0.1)
+end
